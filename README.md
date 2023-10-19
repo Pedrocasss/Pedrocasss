@@ -7,7 +7,7 @@
 
 <p align="center">
 	<a href="mailto:pedroacnesisma@gmail.com">
-		<img alt="Gmail" src="https://img.shields.io/badge/-Ask_me_anything-black?style=flat&logo=Gmail&logoColor=white&link=mailto:pedroacnesisma@gmail.com" />
+		<img alt="Gmail" src="https://img.shields.io/badge/-Gmail-black?style=flat&logo=Gmail&logoColor=white&link=mailto:pedroacnesisma@gmail.com" />
 	</a>
 	<span>  </span>
 	<a href="https://www.linkedin.com/in/pedro-silva-a09aba252/">
