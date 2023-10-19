@@ -1,4 +1,3 @@
-# Pedrocasss
 <h1 align="center"> Hey there 👋 I’m Pedro Silva </h1>
 <p align="right">
 	<img alt="Pedrocasss's followers" src="https://img.shields.io/github/followers/Pedrocasss?color=blue" />
