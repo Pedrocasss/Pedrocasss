@@ -5,7 +5,15 @@
 	<img alt="Pedrocasss's stars" src="https://img.shields.io/github/stars/Pedrocasss?color=red" />
 
 
-
+<p align="center">
+	<a href="mailto:pedroacnesisma@gmail.com">
+		<img alt="Ask Me Anything" src="https://img.shields.io/badge/-Ask_me_anything-black?style=flat&logo=Gmail&logoColor=white&link=mailto:pedroacnesisma@gmail.com" />
+	</a>
+	<span> * </span>
+	<a href="https://www.linkedin.com/in/pedro-silva-a09aba252/">
+		<img alt="Linkedin Profile" src="https://img.shields.io/badge/-Linkedin_Profile-0072b1?style=flat&logo=Linkedin&logoColor=white&link=https://https://www.linkedin.com/in/pedro-silva-a09aba252/" />
+	</a>
+</p>
 
 
  
