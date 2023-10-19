@@ -4,6 +4,10 @@
 	<img alt="Pedrocasss's followers" src="https://img.shields.io/github/followers/Pedrocasss?color=red" />
 	<img alt="Pedrocasss's stars" src="https://img.shields.io/github/stars/Pedrocasss?color=red" />
 
+- 😊 I'm 20 years old
+- 🌎 I live in Portugal
+- 👩‍💻 Student at 42Lisbon
+- 🤓 Chess
 
 <p align="center">
 	<a href="mailto:pedroacnesisma@gmail.com">
