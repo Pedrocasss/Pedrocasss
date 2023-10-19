@@ -1,5 +1,5 @@
 # Pedrocasss
-<h1 align="center"> 💥 Welcome! 💥 </h1>
+<h1 align="center"> Hey there 👋 I’m Pedro Silva </h1>
 <p align="right">
 	<img alt="Pedrocasss's followers" src="https://img.shields.io/github/followers/Pedrocasss?color=red" />
 	<img alt="Pedrocasss's stars" src="https://img.shields.io/github/stars/Pedrocasss?color=red" />
