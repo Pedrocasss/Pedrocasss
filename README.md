@@ -19,5 +19,5 @@
 </p>
 
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=Pedrocasss&show_icons=true&theme=transparent)
+![GitHub Snake](https://github.com/Pedrocasss/Pedrocasss/blob/output/github-contribution-grid-snake.svg)
 
-![GitHub Snake dark](https://github.com/Pedrocasss/Pedrocasss/blob/output/github-contribution-grid-snake-dark.svg#gh-dark-mode-only) 
