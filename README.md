@@ -3,7 +3,7 @@
 	<img alt="Pedrocasss's followers" src="https://img.shields.io/github/followers/Pedrocasss?color=blue" />
 	<img alt="Pedrocasss's stars" src="https://img.shields.io/github/stars/Pedrocasss?color=blue" />
 
-- 😊 I'm 20 years old
+- 😎 I'm 20 years old
 - 🌎 I live in Portugal
 - 👩‍💻 Student at 42Lisbon
 - 🤓 Chess
