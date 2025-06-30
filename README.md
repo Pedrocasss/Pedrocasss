@@ -4,7 +4,7 @@
 	<img alt="Pedrocasss's stars" src="https://img.shields.io/github/stars/Pedrocasss?color=blue" />
 
 - 😎 I'm 22 years old
-- 👩‍💻 Working at POP
+- 👩‍💻 Working at Smart Solutions Platform
 - 🤓 Chess
 
 <p align="center">
