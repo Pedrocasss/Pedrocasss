@@ -3,7 +3,7 @@
 	<img alt="Pedrocasss's followers" src="https://img.shields.io/github/followers/Pedrocasss?color=blue" />
 	<img alt="Pedrocasss's stars" src="https://img.shields.io/github/stars/Pedrocasss?color=blue" />
 
-- 😎 I'm 22 years old
+- 😎 I'm 23
 - 👩‍💻 Working at Doutor Energia
 - 🤓 Chess
 
