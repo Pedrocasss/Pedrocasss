@@ -38,6 +38,9 @@ off-code  ♟ chess
   <img src="https://img.shields.io/badge/Node.js-0B0B0F?style=flat-square&logo=nodedotjs&logoColor=C9B6F2" />
   <img src="https://img.shields.io/badge/Express-0B0B0F?style=flat-square&logo=express&logoColor=C9B6F2" />
   <img src="https://img.shields.io/badge/Python-0B0B0F?style=flat-square&logo=python&logoColor=C9B6F2" />
+  <img src="https://img.shields.io/badge/Go-0B0B0F?style=flat-square&logo=go&logoColor=C9B6F2" />
+  <img src="https://img.shields.io/badge/C-0B0B0F?style=flat-square&logo=c&logoColor=C9B6F2" />
+  <img src="https://img.shields.io/badge/C++-0B0B0F?style=flat-square&logo=cplusplus&logoColor=C9B6F2" />
 </p>
 <p>
   <img src="https://img.shields.io/badge/React-0B0B0F?style=flat-square&logo=react&logoColor=C9B6F2" />
@@ -54,6 +57,7 @@ off-code  ♟ chess
   <img src="https://img.shields.io/badge/WebSockets-0B0B0F?style=flat-square&logo=socketdotio&logoColor=C9B6F2" />
 </p>
 <p>
+  <img src="https://img.shields.io/badge/Azure-0B0B0F?style=flat-square&logo=microsoftazure&logoColor=C9B6F2" />
   <img src="https://img.shields.io/badge/Docker-0B0B0F?style=flat-square&logo=docker&logoColor=C9B6F2" />
   <img src="https://img.shields.io/badge/nginx-0B0B0F?style=flat-square&logo=nginx&logoColor=C9B6F2" />
   <img src="https://img.shields.io/badge/Linux-0B0B0F?style=flat-square&logo=linux&logoColor=C9B6F2" />
