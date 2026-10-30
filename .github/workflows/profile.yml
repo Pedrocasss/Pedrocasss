@@ -1,0 +1,41 @@
+name: Atualizar perfil
+
+on:
+  schedule:
+    - cron: "17 5 * * *"   # todos os dias às 05:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Recolher dados (contribuições, repos com commits, linguagens)
+        # sem o secret PROFILE_TOKEN não se recolhe nada: fica o data.json do último dia bom (o GITHUB_TOKEN não vê privados nem organizações)
+        run: |
+          if [ -z "$PROFILE_TOKEN" ]; then echo "PROFILE_TOKEN em falta: mantém-se o data.json atual"; exit 0; fi
+          node scripts/fetch-data.js
+        env:
+          PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
+      - run: node scripts/generate.js
+      - run: node scripts/check.js
+      - name: Commit só se mudou
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets data.json
+          git diff --cached --quiet || git commit -m "chore: atualizar perfil [skip ci]"
+          git push
