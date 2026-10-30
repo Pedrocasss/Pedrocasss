@@ -15,7 +15,7 @@
 ## 輪廻眼 · About
 
 <p align="center">
-  <img src="./assets/about.svg" width="100%" alt="whoami · Pedro Silva · 23 · Portugal · Full-stack developer @ Doutor Energia · LogDriver coming soon" />
+  <img src="./assets/about.svg" width="100%" alt="whoami · Pedro Silva · 23 · Portugal · Full-stack developer @ Doutor Energia · freelance @ POP TVDE · LogDriver coming soon" />
 </p>
 
 ## 六道 · Stack
