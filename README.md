@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=19&duration=3200&pause=900&color=C9B6F2&center=true&vCenter=true&width=620&lines=Node.js+%C2%B7+Express+%C2%B7+TypeScript;React+19+%C2%B7+Vite;PostgreSQL+%C2%B7+Redis+%C2%B7+BullMQ;WebSockets+%C2%B7+Docker+%C2%B7+nginx;LogDriver+%E2%80%94+coming+soon" alt="typing" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=19&duration=3200&pause=900&color=C9B6F2&center=true&vCenter=true&width=620&lines=Node.js+%C2%B7+Express+%C2%B7+TypeScript;Freelance+%40+POP+TVDE;React+19+%C2%B7+Vite;PostgreSQL+%C2%B7+Redis+%C2%B7+BullMQ;WebSockets+%C2%B7+Docker+%C2%B7+nginx;LogDriver+%E2%80%94+coming+soon" alt="typing" />
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
 ## 輪廻眼 · About
 
 <p align="center">
-  <img src="./assets/about.svg" width="100%" alt="whoami · Pedro Silva · 23 · Portugal · Full-stack developer @ Doutor Energia · freelance @ POP TVDE · LogDriver coming soon" />
+  <img src="./assets/about.svg?v=2" width="100%" alt="whoami · Pedro Silva · 23 · Portugal · Full-stack developer @ Doutor Energia · freelance @ POP TVDE · LogDriver coming soon" />
 </p>
 
 ## 六道 · Stack
