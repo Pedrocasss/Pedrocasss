@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "echo sem build: os SVG sao gerados na funcao api/[nome].js",
+  "outputDirectory": "assets",
+  "installCommand": "npm ci",
+  "ignoreCommand": "git log -1 --pretty=%an | grep -q 'github-actions'",
+  "functions": {
+    "api/[nome].js": {
+      "includeFiles": "{fonts/**,assets/**,data.json}",
+      "maxDuration": 10
+    }
+  }
+}
