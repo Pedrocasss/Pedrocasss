@@ -66,12 +66,8 @@
 ## 天道 · Analytics
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=Pedrocasss&background=0B0B0F&border=3B2A63&stroke=3B2A63&ring=C9B6F2&fire=8E7CC3&currStreakNum=E6E0F5&sideNums=E6E0F5&currStreakLabel=C9B6F2&sideLabels=C9B6F2&dates=8E7CC3" width="100%" />
+  <img src="https://streak-stats.demolab.com?user=Pedrocasss&background=0B0B0F&border=3B2A63&stroke=3B2A63&ring=C9B6F2&fire=8E7CC3&currStreakNum=E6E0F5&sideNums=E6E0F5&currStreakLabel=C9B6F2&sideLabels=C9B6F2&dates=8E7CC3" width="72%" />
 </p>
-<p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Pedrocasss&bg_color=0B0B0F&color=C9B6F2&line=8E7CC3&point=E6E0F5&area=true&area_color=3B2A63&hide_border=false&border_color=3B2A63&radius=12&custom_title=%E5%A4%A9%E9%81%93%20%C2%B7%20contribution%20graph" width="100%" />
-</p>
-
 ## 神羅天征 · Connect
 
 <p align="center">
