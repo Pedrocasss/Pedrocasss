@@ -68,6 +68,7 @@
 <p align="center">
   <img src="https://streak-stats.demolab.com?user=Pedrocasss&background=0B0B0F&border=3B2A63&stroke=3B2A63&ring=C9B6F2&fire=8E7CC3&currStreakNum=E6E0F5&sideNums=E6E0F5&currStreakLabel=C9B6F2&sideLabels=C9B6F2&dates=8E7CC3" width="72%" />
 </p>
+
 ## 神羅天征 · Connect
 
 <p align="center">
@@ -79,5 +80,5 @@
 </p>
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=150&section=footer&color=0:3B2A63,45:1A1230,100:0B0B0F&text=%E7%97%9B%E3%81%BF%E3%82%92%E7%9F%A5%E3%82%8C&fontColor=C9B6F2&fontSize=26&fontAlignY=68&animation=twinkling" alt="痛みを知れ" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=170&section=footer&color=0:3B2A63,45:1A1230,100:0B0B0F&text=Per%20aspera%20ad%20astra&fontColor=C9B6F2&fontSize=30&fontAlignY=62&desc=%E7%97%9B%E3%81%BF%E3%82%92%E7%9F%A5%E3%82%8C%20%C2%B7%20through%20hardship%2C%20to%20the%20stars&descAlignY=82&descSize=14&animation=twinkling" alt="Per aspera ad astra · through hardship, to the stars" />
 </p>
