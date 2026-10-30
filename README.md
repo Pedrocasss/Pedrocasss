@@ -5,30 +5,18 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=19&duration=3200&pause=900&color=C9B6F2&center=true&vCenter=true&width=620&lines=%E7%97%9B%E3%81%BF+%C2%B7+building+a+CRM+from+scratch;Node.js+%C2%B7+React+%C2%B7+PostgreSQL+%C2%B7+Redis;real-time+with+WebSockets+%26+queues;%E5%85%AD%E9%81%93+%C2%B7+six+paths%2C+one+stack" alt="typing" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=19&duration=3200&pause=900&color=C9B6F2&center=true&vCenter=true&width=620&lines=Node.js+%C2%B7+Express+%C2%B7+TypeScript;React+19+%C2%B7+Vite;PostgreSQL+%C2%B7+Redis+%C2%B7+BullMQ;WebSockets+%C2%B7+Docker+%C2%B7+nginx;LogDriver+%E2%80%94+coming+soon" alt="typing" />
 </p>
 
 <p align="center">
   <img src="./assets/rinnegan.svg" width="100%" alt="輪廻眼 · Rinnegan" />
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/based%20in-Portugal-0B0B0F?style=flat-square&labelColor=1A1230&color=0B0B0F&logo=googlemaps&logoColor=C9B6F2" />
-  <img src="https://img.shields.io/badge/working%20at-Doutor%20Energia-0B0B0F?style=flat-square&labelColor=1A1230&color=0B0B0F&logoColor=C9B6F2" />
-  <img src="https://komarev.com/ghpvc/?username=Pedrocasss&label=views&color=8E7CC3&style=flat-square" />
-</p>
-
-<img src="https://capsule-render.vercel.app/api?type=rect&height=2&color=0:0B0B0F,50:C9B6F2,100:0B0B0F" width="100%" />
-
 ## 輪廻眼 · About
 
-```text
-name      Pedro Silva
-age       23
-role      Full-stack developer @ Doutor Energia
-building  an in-house CRM: deals, automations, real-time chat, OCR on invoices
-off-code  ♟ chess
-```
+<p align="center">
+  <img src="./assets/about.svg" width="100%" alt="whoami · Pedro Silva · 23 · Portugal · Full-stack developer @ Doutor Energia · LogDriver coming soon" />
+</p>
 
 ## 六道 · Stack
 
@@ -41,6 +29,9 @@ off-code  ♟ chess
   <img src="https://img.shields.io/badge/Go-0B0B0F?style=flat-square&logo=go&logoColor=C9B6F2" />
   <img src="https://img.shields.io/badge/C-0B0B0F?style=flat-square&logo=c&logoColor=C9B6F2" />
   <img src="https://img.shields.io/badge/C++-0B0B0F?style=flat-square&logo=cplusplus&logoColor=C9B6F2" />
+  <img src="https://img.shields.io/badge/Kotlin-0B0B0F?style=flat-square&logo=kotlin&logoColor=C9B6F2" />
+  <img src="https://img.shields.io/badge/PHP-0B0B0F?style=flat-square&logo=php&logoColor=C9B6F2" />
+  <img src="https://img.shields.io/badge/Laravel-0B0B0F?style=flat-square&logo=laravel&logoColor=C9B6F2" />
 </p>
 <p>
   <img src="https://img.shields.io/badge/React-0B0B0F?style=flat-square&logo=react&logoColor=C9B6F2" />
@@ -75,26 +66,22 @@ off-code  ♟ chess
 ## 天道 · Analytics
 
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=Pedrocasss&show_icons=true&include_all_commits=true&count_private=true&bg_color=0B0B0F&title_color=C9B6F2&icon_color=8E7CC3&text_color=E6E0F5&border_color=3B2A63&hide_border=false" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pedrocasss&layout=compact&bg_color=0B0B0F&title_color=C9B6F2&text_color=E6E0F5&border_color=3B2A63" />
+  <img src="https://streak-stats.demolab.com?user=Pedrocasss&background=0B0B0F&border=3B2A63&stroke=3B2A63&ring=C9B6F2&fire=8E7CC3&currStreakNum=E6E0F5&sideNums=E6E0F5&currStreakLabel=C9B6F2&sideLabels=C9B6F2&dates=8E7CC3" width="100%" />
 </p>
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=Pedrocasss&background=0B0B0F&border=3B2A63&stroke=3B2A63&ring=C9B6F2&fire=8E7CC3&currStreakNum=E6E0F5&sideNums=E6E0F5&currStreakLabel=C9B6F2&sideLabels=C9B6F2&dates=8E7CC3" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Pedrocasss&bg_color=0B0B0F&color=C9B6F2&line=8E7CC3&point=E6E0F5&area=true&area_color=3B2A63&hide_border=false&border_color=3B2A63&radius=12&custom_title=%E5%A4%A9%E9%81%93%20%C2%B7%20contribution%20graph" width="100%" />
 </p>
-
-<img src="https://capsule-render.vercel.app/api?type=rect&height=2&color=0:0B0B0F,50:C9B6F2,100:0B0B0F" width="100%" />
 
 ## 神羅天征 · Connect
 
-<p>
-  <a href="mailto:pedroacnesisma@gmail.com"><img src="https://img.shields.io/badge/Gmail-0B0B0F?style=flat-square&logo=gmail&logoColor=C9B6F2" /></a>
-  <a href="https://www.linkedin.com/in/pedro-silva-a09aba252/"><img src="https://img.shields.io/badge/LinkedIn-0B0B0F?style=flat-square&logo=linkedin&logoColor=C9B6F2" /></a>
+<p align="center">
+  <a href="https://www.linkedin.com/in/pedro-silva-a09aba252/"><img src="https://img.shields.io/badge/LinkedIn-0B0B0F?style=for-the-badge&logo=linkedin&logoColor=C9B6F2&labelColor=0B0B0F" height="34" /></a>
+  &nbsp;
+  <a href="mailto:pedroacnesisma@gmail.com"><img src="https://img.shields.io/badge/Gmail-0B0B0F?style=for-the-badge&logo=gmail&logoColor=C9B6F2&labelColor=0B0B0F" height="34" /></a>
+  &nbsp;
+  <a href="https://github.com/Pedrocasss"><img src="https://komarev.com/ghpvc/?username=Pedrocasss&label=PROFILE%20VIEWS&color=3B2A63&style=for-the-badge" height="34" /></a>
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=14&duration=4000&pause=1500&color=8E7CC3&center=true&vCenter=true&width=420&lines=%E7%97%9B%E3%81%BF%E3%82%92%E7%9F%A5%E3%82%8C+%C2%B7+thanks+for+stopping+by" alt="footer" />
-</p>
-
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&height=110&section=footer&color=0:3B2A63,45:1A1230,100:0B0B0F" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=150&section=footer&color=0:3B2A63,45:1A1230,100:0B0B0F&text=%E7%97%9B%E3%81%BF%E3%82%92%E7%9F%A5%E3%82%8C&fontColor=C9B6F2&fontSize=26&fontAlignY=68&animation=twinkling" alt="痛みを知れ" />
 </p>
