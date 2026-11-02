@@ -2,7 +2,7 @@ name: Atualizar perfil
 
 on:
   schedule:
-    - cron: "*/15 * * * *"   # de 15 em 15 minutos (o GitHub pode atrasar alguns minutos)
+    - cron: "7,22,37,52 * * * *"   # de 15 em 15 minutos, fora da hora certa (às :00 o GitHub está carregado e salta agendamentos)
   workflow_dispatch:
 
 permissions:
