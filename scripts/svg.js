@@ -45,20 +45,23 @@ function tp(font, s, x, y, size, anchor = 'start', ls = 0) {
 // mono: cada glifo definido uma vez em <defs> e repetido com <use>; '❯' é desenhado (a fonte não o tem)
 function glyphs() {
   const defs = new Map();
+  // um caráter: <use> do glifo (definido na primeira vez)
+  const u = (ch, x, y, size) => {
+    const id = `m${size}_${ch.codePointAt(0).toString(36)}`;
+    if (!defs.has(id)) {
+      let d;
+      if (ch === '❯') { const k = size / 15; d = `M${1.5 * k} ${-10 * k}L${7.5 * k} ${-5 * k}L${1.5 * k} 0L${1.5 * k} ${-2.6 * k}L${4.6 * k} ${-5 * k}L${1.5 * k} ${-7.4 * k}Z`; }
+      else { if (!F.mono.charToGlyphIndex(ch)) throw new Error('mono sem glifo ' + ch); d = F.mono.getPath(ch, 0, 0, size).toPathData(1); }
+      defs.set(id, `<path id="${id}" d="${d}"/>`);
+    }
+    return `<use xlink:href="#${id}" x="${x.toFixed(1)}" y="${y}"/>`;
+  };
   return {
+    u,
     t(s, x, y, size, fill, extra = '') {
       let out = '', cx = x;
       for (const ch of s) {
-        if (ch !== ' ') {
-          const id = `m${size}_${ch.codePointAt(0).toString(36)}`;
-          if (!defs.has(id)) {
-            let d;
-            if (ch === '❯') { const k = size / 15; d = `M${1.5 * k} ${-10 * k}L${7.5 * k} ${-5 * k}L${1.5 * k} 0L${1.5 * k} ${-2.6 * k}L${4.6 * k} ${-5 * k}L${1.5 * k} ${-7.4 * k}Z`; }
-            else { if (!F.mono.charToGlyphIndex(ch)) throw new Error('mono sem glifo ' + ch); d = F.mono.getPath(ch, 0, 0, size).toPathData(1); }
-            defs.set(id, `<path id="${id}" d="${d}"/>`);
-          }
-          out += `<use xlink:href="#${id}" x="${cx.toFixed(1)}" y="${y}"/>`;
-        }
+        if (ch !== ' ') out += u(ch, cx, y, size);
         cx += size * 0.6;
       }
       return `<g fill="${fill}"${extra}>${out}</g>`;
@@ -105,67 +108,136 @@ function derive(data) {
 const short = n => n.replace('JavaScript', 'JS').replace('TypeScript', 'TS');
 
 // ---------- olho em caracteres ----------
-const CW = 7.8, LH = 13, FS = 13, COLS = 38, ROWS = 21;
-const PW = 340, PH = 480, OX = (PW - COLS * CW) / 2, OY = 110;
-const ECX = OX + COLS * CW / 2, ECY = OY + ROWS * LH / 2 - 4;
-const A = 146, HH = 104, RI = 92;
-const inAlm = (x, y, f = 1) => { const u = (x - ECX) / A; return Math.abs(u) < 1 && Math.abs(y - ECY) < HH * f * (1 - u * u); };
-const almPath = f => `M${ECX - A} ${ECY}Q${ECX} ${ECY - 2 * HH * f} ${ECX + A} ${ECY}Q${ECX} ${ECY + 2 * HH * 0.9 * f} ${ECX - A} ${ECY}Z`;
+// Cada célula da grelha é sombreada (luminância -> rampa de caracteres, com cor própria) para dar volume:
+// esclera, íris lavanda com os 6 anéis sempre desenhados (os acesos = contribuições de hoje), pupila, reflexo, pálpebras e prega.
+const RAMP = ' .:-=+*#%@';
+const FS = 7, CW = FS * 0.6, LH = 7, COLS = 78, ROWS = 46;
+const PW = 340, PH = 480, OX = (PW - COLS * CW) / 2, OY = 86;
+const ECX = 170, YC = 250, A = 158, HU = 92, HL = 94; // cantos do olho na linha YC; HU/HL = altura das pálpebras de cima/baixo
+const ICX = ECX, ICY = YC + 2, RI = 100, RP = 0.14;    // íris (raio em px) e pupila (fração do raio)
+const RINGS = [1, 2, 3, 4, 5, 6].map(i => RP + (1 - RP) * i / 6); // o 6.º anel é a borda da íris
 const DIRS = { c: [0, 0, 'center'], n: [0, -2, 'north'], ne: [4, -2, 'north-east'], e: [5, 0, 'east'], se: [4, 2, 'south-east'], s: [0, 2, 'south'], sw: [-4, 2, 'south-west'], w: [-5, 0, 'west'], nw: [-4, -2, 'north-west'] };
+
+const clamp = v => Math.max(0, Math.min(1, v));
+const hex = s => [1, 3, 5].map(i => parseInt(s.slice(i, i + 2), 16));
+// cor entre a e b -> #rgb (4 bits por canal): poucos grupos de cor e menos bytes
+const col = (a, b, t) => '#' + hex(a).map((v, i) => Math.round((v + (hex(b)[i] - v) * clamp(t)) / 17).toString(16)).join('');
+const ramp = l => RAMP[Math.round(clamp(l) * (RAMP.length - 1))];
+const hash = (r, c) => { const s = Math.sin(r * 127.1 + c * 311.7) * 43758.5453; return s - Math.floor(s); };
+// Bézier cúbica: y(x) por amostragem (as curvas das pálpebras são monótonas em x) e o "d" para o SVG
+function bez(p) {
+  const pts = [];
+  for (let i = 0; i <= 120; i++) {
+    const t = i / 120, k = [(1 - t) ** 3, 3 * t * (1 - t) ** 2, 3 * t * t * (1 - t), t ** 3];
+    pts.push([0, 1].map(j => k.reduce((a, w, n) => a + w * p[n][j], 0)));
+  }
+  const y = x => {
+    if (x <= pts[0][0] || x >= pts.at(-1)[0]) return null;
+    const i = pts.findIndex(q => q[0] >= x), [a, b] = [pts[i - 1], pts[i]];
+    return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]);
+  };
+  return { y, d: `M${p[0].map(v => v.toFixed(1))}C${p.slice(1).flat().map(v => v.toFixed(1))}` };
+}
+const L0 = [ECX - A, YC + 5], L1 = [ECX + A, YC - 3]; // canto interior um pouco mais baixo que o exterior
+// pálpebra de cima com abertura s (1 = aberta, 0 = linha dos cantos, -1 = fechada sobre a de baixo)
+const upper = s => bez([L0, [ECX - A * 0.5, YC - HU * s / 0.75], [ECX + A * 0.42, YC - HU * s / 0.75], L1]);
+const lower = bez([L0, [ECX - A * 0.42, YC + HL / 0.75], [ECX + A * 0.55, YC + HL / 0.75], L1]);
+const crease = s => bez([[ECX - A * 0.75, YC - 34], [ECX - A * 0.42, YC - (HU * s + 12) / 0.75], [ECX + A * 0.4, YC - (HU * s + 12) / 0.75], [ECX + A * 0.92, YC - 34]]);
+
+// uma linha (bordo da pálpebra, prega) em caracteres: escolhidos pelo declive e pela altura dentro da célula
+function lineChars(curve, put, color, x0 = 0, x1 = PW) {
+  for (let c = 0; c < COLS; c++) {
+    const x = OX + (c + 0.5) * CW;
+    if (x < x0 || x > x1) continue;
+    const y = curve.y(x), ya = curve.y(x - CW / 2), yb = curve.y(x + CW / 2);
+    if (y == null || ya == null || yb == null) continue;
+    const r = Math.floor((y - OY) / LH), f = (y - OY) / LH - r, dy = yb - ya;
+    const ch = Math.abs(dy) > LH * 0.6 ? (dy < 0 ? '/' : '\\') : f > 0.66 ? '_' : f > 0.33 ? '-' : '\'';
+    put(ch, c, r, typeof color === 'function' ? color(x) : color);
+  }
+}
 
 function eye(D, dir = 'c') {
   const g = glyphs();
   const head = win(g, PW, PH, 'rinnegan.ascii');
-  const cell = (c, r) => [OX + c * CW + CW / 2, OY + r * LH + LH / 2];
-  const outline = f => {
-    let up = '', lo = '';
-    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
-      const [x, y] = cell(c, r);
-      if (!inAlm(x, y, f)) continue;
-      if (!inAlm(x, y - LH, f)) up += g.t(Math.abs(x - ECX) > A * 0.86 ? (x < ECX ? '<' : '>') : '=', x - CW / 2, y + 4, FS, C.lav);
-      else if (!inAlm(x, y + LH, f)) lo += g.t('-', x - CW / 2, y + 4, FS, C.mid);
-    }
-    return up + lo;
+  const layers = {};
+  const put = layer => (ch, c, r, fill) => {
+    if (ch === ' ' || r < 0 || r >= ROWS || c < 0 || c >= COLS) return;
+    const L = layers[layer] ||= new Map();
+    L.set(fill, (L.get(fill) || '') + g.u(ch, OX + c * CW, +(OY + r * LH + LH / 2 + FS * 0.28).toFixed(1), FS));
   };
-  const closed = Array.from({ length: COLS - 2 }, (_, c) => g.t(c === 0 ? '<' : c === COLS - 3 ? '>' : '=', OX + (c + 1) * CW, ECY + 4, FS, C.lav)).join('');
-  let scl = '';
-  for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
-    const [x, y] = cell(c, r);
-    if (inAlm(x, y, 0.92) && (r + c) % 3 === 0) scl += g.t('.', x - CW / 2, y + 4, FS, '#3E335C');
+  const emit = layer => [...(layers[layer] || new Map())].map(([f, s]) => `<g fill="${f}">${s}</g>`).join('');
+  const cells = fn => { for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) fn(OX + (c + 0.5) * CW, OY + (r + 0.5) * LH, r, c); };
+  const on = RINGS.slice(0, D.rings); // os anéis acendem de dentro para fora
+  const sOpen = 0.9 + D.rings / 60; // sem contribuições a pálpebra desce um pouco; o olho nunca fecha
+  const up = upper(sOpen);
+  const inEye = (x, y) => { const a = up.y(x), b = lower.y(x); return a != null && b != null && y > a && y < b; };
+
+  // 1) esclera (fixa): mais escura nos cantos e junto à pálpebra de baixo
+  const scl = put('scl');
+  cells((x, y, r, c) => {
+    if (!inEye(x, y) || Math.hypot(x - ICX, y - ICY) < RI - 26) return; // o que fica sempre debaixo da íris não se desenha
+    const u = (x - ECX) / A;
+    const l = (0.58 - 0.46 * u * u + (hash(r, c) - 0.5) * 0.12) * Math.min(1, 0.45 + (lower.y(x) - y) / 14);
+    scl(ramp(l), c, r, col('#4a4362', '#f0ecf7', l * 1.6));
+  });
+
+  // 2) íris (move-se): degradé lavanda com fibras e luz de cima-esquerda; anéis apagados = sulcos escuros, acesos = brilho
+  const iris = put('iris'), lit = put('lit');
+  cells((x, y, r, c) => {
+    const dx = x - ICX, dy = y - ICY, d = Math.hypot(dx, dy) / RI;
+    if (d > 1.03) return;
+    const hl = Math.hypot(dx + RI * 0.34, dy + RI * 0.38);                                      // reflexo da luz na córnea
+    if (hl < 9) return iris(hl < 4 ? '@' : hl < 6.5 ? '#' : '*', c, r, hl < 6.5 ? '#fff' : '#e6dcf7');
+    if (Math.hypot(dx - RI * 0.27, dy - RI * 0.3) < 3.5) return iris('+', c, r, '#d4c8ee');
+    if (d < RP) return;                                                                         // pupila
+    const ang = Math.atan2(dy, dx), rho = d * RI, near = RINGS.reduce((m, q) => Math.abs(d - q) < Math.abs(d - m) ? q : m);
+    // anel com uma célula de espessura: a meia largura é a projeção da célula na direção do raio
+    const hw = 0.5 * (Math.abs(dx) * CW + Math.abs(dy) * LH) / rho, w = 1 - Math.abs(rho - near * RI) / hw;
+    if (w > 0 && on.includes(near)) return lit(ramp(0.7 + 0.3 * w), c, r, col('#e2d6ff', '#ffffff', w));
+    if (w > 0) return iris(w > 0.5 ? '.' : ':', c, r, '#5e4d8c');
+    const l = 0.66 + 0.14 * (1 - d) + 0.05 * Math.sin(ang * 19 + d * 7) - 0.08 * (dx + dy) / RI - 0.22 * Math.max(0, d - 0.88) / 0.12;
+    iris(ramp(l), c, r, col('#b39ddb', '#e8cdf2', (l - 0.55) * 3));
+  });
+
+  // 3) prega da pálpebra e bordos (aberto, meio, fechado); o de baixo é fixo
+  const skin = put('skin');
+  lineChars(crease(sOpen), skin, x => col('#241f36', '#4f4473', 1 - ((x - ECX) / A / 0.8) ** 2), ECX - A * 0.6, ECX + A * 0.78);
+  const lid = (s, name) => {
+    const p = put(name), cv = upper(s);
+    lineChars(cv, p, x => col('#6a5a96', '#ece4ff', 1.3 - ((x - ECX) / A) ** 2));
+  };
+  lid(sOpen, 'lo'); lid(sOpen * 0.4, 'lh'); lid(-1, 'lc');
+  lineChars(lower, put('low'), x => col('#2f2846', '#7a68ad', 1 - ((x - ECX) / A) ** 2));
+
+  // animações (SMIL e CSS, sem JS): piscar aos saltos e o olhar a vaguear devagar
+  const dur = 9, bl = [[0, 1]];
+  for (const [t, dbl] of [[2.6, 0], [6.4, 1]]) {
+    bl.push([t, 0.5], [t + 0.07, 0], [t + 0.16, 0.5], [t + 0.24, 1]);
+    if (dbl) bl.push([t + 0.42, 0.5], [t + 0.49, 0], [t + 0.58, 0.5], [t + 0.66, 1]);
   }
-  // íris: anéis «O» (quantos = commits de hoje), pupila «@»
-  let iris = `<circle cx="${ECX}" cy="${ECY}" r="${RI + 3}" fill="${C.bg}"/>`;
-  const ringsR = [0.95, 0.74, 0.53, 0.32].slice(0, Math.ceil(D.rings * 4 / 6));
-  for (let r = -10; r <= 10; r++) for (let c = -14; c <= 14; c++) {
-    const x = ECX + c * CW, y = ECY + r * LH, d = Math.hypot(x - ECX, y - ECY) / RI;
-    if (d > 1.02) continue;
-    let ch = null, col = C.mid;
-    if (d < 0.13) { ch = '@'; col = C.ink; }
-    else if (ringsR.some(q => Math.abs(d - q) < 0.075)) { ch = 'O'; col = C.lav; }
-    else if (d < 0.95) { ch = (r + c) % 2 ? ':' : '.'; col = d < 0.5 ? '#6D59A8' : C.mid; }
-    if (ch) iris += g.t(ch, x - CW / 2, y + 4, FS, col);
-  }
-  const [dx, dy, label] = DIRS[dir];
-  // piscar aos saltos (aberto, meio, fechado) em ciclo irregular; sem commits hoje, fica meio fechado
-  const dur = 13, sleepy = D.rings === 0, bl = [[0, sleepy ? 0.5 : 1]];
-  for (const [t, dbl] of [[3.0, 0], [7.4, 1], [10.6, 0]]) {
-    const o = sleepy ? 0.5 : 1;
-    bl.push([t, 0.5], [t + 0.08, 0], [t + 0.18, 0.5], [t + 0.26, o]);
-    if (dbl) bl.push([t + 0.42, 0.5], [t + 0.5, 0], [t + 0.6, 0.5], [t + 0.68, o]);
-  }
-  bl.push([dur, sleepy ? 0.5 : 1]);
+  bl.push([dur, 1]);
   const disc = ' calcMode="discrete"';
-  const dAnim = kfAnim('d', dur, bl, k => almPath(Math.max(k[1], 0.001)), disc);
+  const clipUp = s => `${upper(s).d}V${PH}H${L0[0]}Z`;
+  const dAnim = kfAnim('d', dur, bl, k => clipUp(k[1] === 1 ? sOpen : k[1] ? sOpen * 0.4 : -1.05), disc);
   const vis = st => kfAnim('opacity', dur, bl, k => +(k[1] === st), disc);
+  const [gx, gy, label] = DIRS[dir];
   const gaze = dir === 'c'
-    ? `<animateTransform attributeName="transform" type="translate" dur="11s" repeatCount="indefinite" calcMode="discrete" keyTimes="0;.18;.36;.5;.68;.84" values="0 0;${-4 * CW} 0;${4 * CW} ${-LH};${2 * CW} ${LH};${-3 * CW} ${-LH};0 0"/>` : '';
-  const body = `<defs><clipPath id="ec"><path d="${almPath(1)}">${dAnim}</path></clipPath></defs>
-<g clip-path="url(#ec)">${scl}<g transform="translate(${dx * CW} ${dy * LH})"><g>${gaze}${iris}</g></g></g>
-<g>${vis(1)}${outline(1)}</g><g opacity="0">${vis(0.5)}${outline(0.5)}</g><g opacity="0">${vis(0)}${closed}</g>`;
+    ? `<animateTransform attributeName="transform" type="translate" dur="16s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.12;.22;.36;.46;.6;.7;.82;.9;1" values="0 0;0 0;-16 2;-16 2;12 -3;12 -3;6 4;6 4;0 0;0 0" keySplines="${Array(9).fill('.45 0 .55 1').join(';')}"/>` : '';
+  const fx = `<filter id="gl" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="sc" cx="${ICX}" cy="${ICY}" r="${A}" gradientUnits="userSpaceOnUse"><stop offset=".5" stop-color="#2c2840"/><stop offset="1" stop-color="#121019"/></radialGradient><radialGradient id="ir"><stop offset=".14" stop-color="#0b0b0f"/><stop offset=".2" stop-color="#6e5a9e"/><stop offset=".85" stop-color="#5c4a8a"/><stop offset="1" stop-color="#2e2450"/></radialGradient>
+<filter id="sh" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>`;
+  const ring = (qs, stroke, sw) => `<g fill="none" stroke="${stroke}" stroke-width="${sw}">${qs.map(q => `<circle cx="${ICX}" cy="${ICY}" r="${(q * RI).toFixed(1)}"/>`).join('')}</g>`;
+  const body = `<defs>${fx}<clipPath id="ce"><path d="${lower.d}V${OY}H${L0[0]}Z"/></clipPath><clipPath id="cu"><path d="${clipUp(sOpen)}">${dAnim}</path></clipPath></defs>
+${emit('skin')}<g clip-path="url(#ce)"><g clip-path="url(#cu)"><rect x="0" y="${OY}" width="${PW}" height="${ROWS * LH}" fill="url(#sc)"/>${emit('scl')}
+<g transform="translate(${gx * 4} ${gy * 3})"><g>${gaze}<circle cx="${ICX}" cy="${ICY}" r="${RI + 2}" fill="url(#ir)"/>${ring(RINGS.filter(q => !on.includes(q)), '#140e24', 2.6)}${emit('iris')}<g class="lit" filter="url(#gl)">${ring(on, '#e9ddff', 1.6)}${emit('lit')}</g></g></g>
+<path d="${up.d}" fill="none" stroke="${C.bg}" stroke-width="16" opacity=".8" filter="url(#sh)"/></g></g>
+${emit('low')}<g>${vis(1)}${emit('lo')}</g><g opacity="0">${vis(0.5)}${emit('lh')}</g><g opacity="0">${vis(0)}${emit('lc')}</g>`;
+  const css = `<style>.lit{animation:lit 3.2s ease-in-out infinite}@keyframes lit{50%{opacity:.7}}${RM}</style>`;
   const foot = g.t(dir === 'c' ? 'gaze: wandering' : `gaze: ${label}`, 22, PH - 54, 13, C.lav) + g.t(`rings lit: ${D.rings}/6 (today ${D.today})`, 22, PH - 32, 12, C.dim);
   const kanji = `<path d="${tp(F.jp, '輪廻眼', PW - 22, 76, 26, 'end', 2)}" fill="${C.lav}"/>` + g.t('RINNEGAN', 22, 72, 13, C.mid);
   return `<svg ${NS} width="${PW}" height="${PH}" viewBox="0 0 ${PW} ${PH}" role="img" aria-label="Rinnegan drawn in characters, ${D.rings} of 6 rings lit by today's ${D.today} contributions">
-<title>rinnegan.ascii</title><defs>${g.defs()}</defs>${head}${kanji}${body}${foot}</svg>`;
+<title>rinnegan.ascii</title><defs>${g.defs()}${css}</defs>${head}${kanji}${body}${foot}</svg>`;
 }
 
 // ---------- ficha neofetch ----------
